@@ -1,0 +1,4 @@
+int32 robot_name  # robot name (win robot in auction)
+float32[] auction_wp  # wp where robot winning at this auction will go
+---
+bool bidder_copied # wp save result by the bidder

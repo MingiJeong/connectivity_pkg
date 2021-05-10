@@ -1,0 +1,4 @@
+int32 robot_name  # robot name (bidder robot)
+float32[] distance_cost  # global position of bidder robot
+---
+bool register_success # registration success result by the auctioneer

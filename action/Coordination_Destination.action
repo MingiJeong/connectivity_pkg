@@ -1,0 +1,11 @@
+# Goal
+array1d[] goal_position # goal position wrt world frame
+
+---
+# Result
+bool goal_reached  # result after completion of action goal
+
+---
+# Feedback
+int32 robot_name  # robot name performing the task
+float32 distance_to_go  # that robot's distance to go towards destination
