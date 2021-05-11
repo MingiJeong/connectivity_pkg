@@ -13,7 +13,7 @@ X_coord_min = -5
 X_coord_max = 5
 Y_coord_min = -5
 Y_coord_max = 5
-CLOSE_DIST_THRESH = 2
+CLOSE_DIST_THRESH = 3 # ranomness close distance
 
 def none_in_dict(d):
     """

@@ -1,8 +1,9 @@
 <launch>
   <!-- launching arguments passed as param for main task -->
-  <arg name="point_total" default="3"/>
+  <arg name="random_generate" default="false"/>
 
   <!-- main task node -->
-  <node pkg="connectivity_pkg" type="waypoint_send" name="waypoint_send" output="screen"/>
-
+  <node pkg="connectivity_pkg" type="waypoint_send" name="waypoint_send" output="screen">
+    <param name="random_generate" value="$(arg random_generate)"/>
+  </node>
 </launch>

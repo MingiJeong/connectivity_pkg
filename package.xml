@@ -2,7 +2,8 @@
 <package format="2">
   <name>connectivity_pkg</name>
   <version>0.0.0</version>
-  <description>The connectivity_pkg package</description>
+  <description>The connectivity_pkg builds steiner tree with terminal nodes and connection nodes.
+  Then assigned robots will go to those locations</description>
 
   <maintainer email="mingi.jeong.gr@dartmouth.edu">Mingi Jeong</maintainer>
 

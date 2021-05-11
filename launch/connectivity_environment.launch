@@ -31,7 +31,7 @@
     <arg name="forth_tb3_yaw"   default=" -1.57"/>
 
     <arg name="fifth_tb3_x_pos" default=" 0.0"/>
-    <arg name="fifth_tb3_y_pos" default=" -5.0"/>
+    <arg name="fifth_tb3_y_pos" default=" -3.0"/>
     <arg name="fifth_tb3_z_pos" default=" 0.0"/>
     <arg name="fifth_tb3_yaw"   default=" -1.57"/>
 

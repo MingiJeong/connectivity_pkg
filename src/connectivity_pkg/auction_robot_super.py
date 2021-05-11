@@ -26,6 +26,7 @@ DEFAULT_WP_TOPIC = 'waypoints'
 DEFAULT_WP_ALLOCATE_INTENTION_TOPIC = "wp_allocate_intention"
 DEFAULT_FLUSH_OUT_TOPIC = "flushout"
 DEFAULT_CMD_VEL_TOPIC = 'cmd_vel'
+DEFAULT_MARKER = 'visual_marker'
 
 DEFAULT_ODOM_FRAME = 'odom'
 DEFAULT_WORLD_FRAME = 'world'
@@ -202,7 +203,8 @@ class AuctionRobot():
 
                     # ============================================================
                     # CASE 2: 
-                    # this robot already allocated to at least one wp, now checking costs based on that wp
+                    # this robot already allocated to at least one wp
+                    # PA-5 assigned robot no more participate
                     # ============================================================
                     else:
                         distance_cost_list = list()
