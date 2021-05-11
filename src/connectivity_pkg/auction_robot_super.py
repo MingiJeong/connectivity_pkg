@@ -210,10 +210,7 @@ class AuctionRobot():
                         base_position = self.my_allocated_wps[-1]
                         for key, value in self.target_wps_received.items():
                             # already allocated wp (no need to calculation)
-                            if self.target_wps_allocate_status[key]:
-                                distance_cost_list.append(float('inf'))
-                                continue
-                            distance_cost_list.append(aux_function.distance_calculator(value, base_position))
+                            distance_cost_list.append(float('inf'))
 
                     # ============================================================
                     # COMMON: auction round bidding registration

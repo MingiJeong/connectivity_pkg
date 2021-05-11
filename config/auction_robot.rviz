@@ -11,6 +11,7 @@ Panels:
         - /tb3_0/odom1/Shape1
         - /tb3_1/odom1/Shape1
         - /tb3_2/odom1/Shape1
+        - /MarkerArray1
       Splitter Ratio: 0.5
     Tree Height: 556
   - Class: rviz/Selection
@@ -139,6 +140,54 @@ Visualization Manager:
           Value: true
         tb3_2/wheel_right_link:
           Value: true
+        tb3_3/base_footprint:
+          Value: true
+        tb3_3/base_link:
+          Value: true
+        tb3_3/base_scan:
+          Value: true
+        tb3_3/camera_link:
+          Value: true
+        tb3_3/camera_rgb_frame:
+          Value: true
+        tb3_3/camera_rgb_optical_frame:
+          Value: true
+        tb3_3/caster_back_left_link:
+          Value: true
+        tb3_3/caster_back_right_link:
+          Value: true
+        tb3_3/imu_link:
+          Value: true
+        tb3_3/odom:
+          Value: true
+        tb3_3/wheel_left_link:
+          Value: true
+        tb3_3/wheel_right_link:
+          Value: true
+        tb3_4/base_footprint:
+          Value: true
+        tb3_4/base_link:
+          Value: true
+        tb3_4/base_scan:
+          Value: true
+        tb3_4/camera_link:
+          Value: true
+        tb3_4/camera_rgb_frame:
+          Value: true
+        tb3_4/camera_rgb_optical_frame:
+          Value: true
+        tb3_4/caster_back_left_link:
+          Value: true
+        tb3_4/caster_back_right_link:
+          Value: true
+        tb3_4/imu_link:
+          Value: true
+        tb3_4/odom:
+          Value: true
+        tb3_4/wheel_left_link:
+          Value: true
+        tb3_4/wheel_right_link:
+          Value: true
         world:
           Value: true
       Marker Scale: 1
@@ -204,6 +253,44 @@ Visualization Manager:
                 tb3_2/wheel_left_link:
                   {}
                 tb3_2/wheel_right_link:
+                  {}
+          tb3_3/odom:
+            tb3_3/base_footprint:
+              tb3_3/base_link:
+                tb3_3/base_scan:
+                  {}
+                tb3_3/camera_link:
+                  tb3_3/camera_rgb_frame:
+                    tb3_3/camera_rgb_optical_frame:
+                      {}
+                tb3_3/caster_back_left_link:
+                  {}
+                tb3_3/caster_back_right_link:
+                  {}
+                tb3_3/imu_link:
+                  {}
+                tb3_3/wheel_left_link:
+                  {}
+                tb3_3/wheel_right_link:
+                  {}
+          tb3_4/odom:
+            tb3_4/base_footprint:
+              tb3_4/base_link:
+                tb3_4/base_scan:
+                  {}
+                tb3_4/camera_link:
+                  tb3_4/camera_rgb_frame:
+                    tb3_4/camera_rgb_optical_frame:
+                      {}
+                tb3_4/caster_back_left_link:
+                  {}
+                tb3_4/caster_back_right_link:
+                  {}
+                tb3_4/imu_link:
+                  {}
+                tb3_4/wheel_left_link:
+                  {}
+                tb3_4/wheel_right_link:
                   {}
       Update Interval: 0
       Value: true
@@ -361,6 +448,14 @@ Visualization Manager:
       Topic: /tb3_2/odom
       Unreliable: false
       Value: true
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /visual_marker
+      Name: MarkerArray
+      Namespaces:
+        "": true
+      Queue Size: 100
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -385,7 +480,7 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Angle: 0
+      Angle: -0.00499994867
       Class: rviz/TopDownOrtho
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
@@ -395,11 +490,11 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Scale: 55.3851357
+      Scale: 54.2926559
       Target Frame: <Fixed Frame>
       Value: TopDownOrtho (rviz)
-      X: -0.497781634
-      Y: 0.383692503
+      X: -1.20129991
+      Y: 1.87493467
     Saved: ~
 Window Geometry:
   Displays:

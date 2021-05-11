@@ -3,7 +3,10 @@
     <arg name="first_tb3"  default="0"/>
     <arg name="second_tb3" default="1"/>
     <arg name="third_tb3"  default="2"/>
-    <arg name="robot_total" default="3"/>
+    <arg name="forth_tb3"  default="3"/>
+    <arg name="fifth_tb3"  default="4"/>
+
+    <arg name="robot_total" default="5"/>
 
     <arg name="first_tb3_x_pos" default=""/>
     <arg name="first_tb3_y_pos" default=""/>
@@ -22,6 +25,18 @@
     <arg name="third_tb3_z_pos" default=""/>
     <arg name="third_tb3_yaw"   default=""/>
     <arg name="third_tb3_leader" default="false"/>
+
+    <arg name="forth_tb3_x_pos" default=""/>
+    <arg name="forth_tb3_y_pos" default=""/>
+    <arg name="forth_tb3_z_pos" default=""/>
+    <arg name="forth_tb3_yaw"   default=""/>
+    <arg name="forth_tb3_leader" default="false"/>
+
+    <arg name="fifth_tb3_x_pos" default=""/>
+    <arg name="fifth_tb3_y_pos" default=""/>
+    <arg name="fifth_tb3_z_pos" default=""/>
+    <arg name="fifth_tb3_yaw"   default=""/>
+    <arg name="fifth_tb3_leader" default="false"/>
 
     <!-- TF broadcastor for initial environment set up -->
     <node pkg="connectivity_pkg" type="tf_broadcastor" name="tf_broadcastor" output="screen">
@@ -59,6 +74,28 @@
         <arg name="init_z" value="$(arg third_tb3_z_pos)" />
         <arg name="init_yaw" value="$(arg third_tb3_yaw)" />
         <arg name="leader" value="$(arg third_tb3_leader)"/>
+    </include>
+
+    <!-- 4th robot -->
+    <include file="$(find connectivity_pkg)/launch/robot_load.launch">
+        <arg name="robot_id" value="$(arg forth_tb3)" />
+        <arg name="robot_total" value="$(arg robot_total)" />
+        <arg name="init_x" value="$(arg forth_tb3_x_pos)" />
+        <arg name="init_y" value="$(arg forth_tb3_y_pos)" />
+        <arg name="init_z" value="$(arg forth_tb3_z_pos)" />
+        <arg name="init_yaw" value="$(arg forth_tb3_yaw)" />
+        <arg name="leader" value="$(arg forth_tb3_leader)"/>
+    </include>
+
+    <!-- 5th robot -->
+    <include file="$(find connectivity_pkg)/launch/robot_load.launch">
+        <arg name="robot_id" value="$(arg fifth_tb3)" />
+        <arg name="robot_total" value="$(arg robot_total)" />
+        <arg name="init_x" value="$(arg fifth_tb3_x_pos)" />
+        <arg name="init_y" value="$(arg fifth_tb3_y_pos)" />
+        <arg name="init_z" value="$(arg fifth_tb3_z_pos)" />
+        <arg name="init_yaw" value="$(arg fifth_tb3_yaw)" />
+        <arg name="leader" value="$(arg fifth_tb3_leader)"/>
     </include>
 
 </launch>

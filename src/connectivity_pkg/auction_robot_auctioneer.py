@@ -408,31 +408,3 @@ class AuctionRobotAuctioneer(AuctionRobot):
         """
         while not rospy.is_shutdown():
             self.wrap_up_function_auctioneer()
-
-            # # lookup transform
-            # self._look_up_transform()
-
-            # # 1. initial position publish to make TF broadcator can do static TF transform
-            # self._init_pose_publish()
-
-            # # 2. waypoint allocation intention publish
-            # self._wp_allocate_intention_publish()
-
-            # # 3. hold an auction
-            # self.auction_progress()
-            # self.next_auction_round_auctioneer()
-
-            # # 4-1. action client sent
-            # self.goal_action_client()
-
-            # # 4-2. action server receive
-            # self.goal_action_server()
-
-            # # # 4-3. action periodic check
-            # self.action_periodic_check()
-
-            # # # 5. flushout
-            # self.flush_out_after_task()
-
-            # # publish rate
-            # self.rate.sleep()
