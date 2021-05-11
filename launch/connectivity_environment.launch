@@ -1,0 +1,93 @@
+<launch>
+    <!-- launching arguments passed for main task -->
+
+    <!-- load turtlebot 3 model: default waffle_pi as per this class instruction-->
+    <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/> 
+    <!-- turtlebot namespace going to topic prefix-->
+    <arg name="first_tb3"  default="tb3_0"/>
+    <arg name="second_tb3" default="tb3_1"/>
+    <arg name="third_tb3"  default="tb3_2"/>
+
+    <arg name="first_tb3_x_pos" default="-3.0"/>
+    <arg name="first_tb3_y_pos" default="0.0"/>
+    <arg name="first_tb3_z_pos" default=" 0.0"/>
+    <arg name="first_tb3_yaw"   default=" 1.57"/>
+
+    <arg name="second_tb3_x_pos" default=" 3.0"/>
+    <arg name="second_tb3_y_pos" default="0.0"/>
+    <arg name="second_tb3_z_pos" default=" 0.0"/>
+    <arg name="second_tb3_yaw"   default=" 1.57"/>
+
+    <arg name="third_tb3_x_pos" default=" 1"/>
+    <arg name="third_tb3_y_pos" default=" 1.0"/>
+    <arg name="third_tb3_z_pos" default=" 0.0"/>
+    <arg name="third_tb3_yaw"   default=" 0.0"/>
+
+    <!-- load world file -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find connectivity_pkg)/worlds/coordination_gazebo.world"/>
+        <arg name="paused" value="false"/>
+        <arg name="use_sim_time" value="true"/>
+        <arg name="gui" value="true"/>
+        <arg name="headless" value="false"/>
+        <arg name="debug" value="false"/>
+    </include>
+
+    <!-- 1st robot -->
+    <group ns = "$(arg first_tb3)">
+        <param name="robot_description" command="$(find xacro)/xacro --inorder $(find custom_turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
+
+        <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
+            <param name="publish_frequency" type="double" value="50.0" />
+            <param name="tf_prefix" value="$(arg first_tb3)" />
+        </node>
+
+        <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model $(arg first_tb3) -x $(arg first_tb3_x_pos) -y $(arg first_tb3_y_pos) -z $(arg first_tb3_z_pos) -Y $(arg first_tb3_yaw) -param robot_description" />
+    </group>
+
+    <!-- 2nd robot -->
+    <group ns = "$(arg second_tb3)">
+        <param name="robot_description" command="$(find xacro)/xacro --inorder $(find custom_turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
+
+        <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
+            <param name="publish_frequency" type="double" value="50.0" />
+            <param name="tf_prefix" value="$(arg second_tb3)" />
+        </node>
+
+        <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model $(arg second_tb3) -x $(arg second_tb3_x_pos) -y $(arg second_tb3_y_pos) -z $(arg second_tb3_z_pos) -Y $(arg second_tb3_yaw) -param robot_description" />
+    </group>
+
+    <!-- 3rd robot -->
+    <group ns = "$(arg third_tb3)">
+        <param name="robot_description" command="$(find xacro)/xacro --inorder $(find custom_turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
+
+        <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
+            <param name="publish_frequency" type="double" value="50.0" />
+            <param name="tf_prefix" value="$(arg third_tb3)" />
+        </node>
+
+        <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model $(arg third_tb3) -x $(arg third_tb3_x_pos) -y $(arg third_tb3_y_pos) -z $(arg third_tb3_z_pos) -Y $(arg third_tb3_yaw) -param robot_description" />
+    </group>
+
+    <!-- coordination task -->
+    <include file="$(find connectivity_pkg)/launch/connectivity_control.launch">
+        <arg name="first_tb3_x_pos" value="$(arg first_tb3_x_pos)" />
+        <arg name="first_tb3_y_pos" value="$(arg first_tb3_y_pos)" />
+        <arg name="first_tb3_z_pos" value="$(arg first_tb3_z_pos)" />
+        <arg name="first_tb3_yaw"   value="$(arg first_tb3_yaw)" />
+
+        <arg name="second_tb3_x_pos" value="$(arg second_tb3_x_pos)" />
+        <arg name="second_tb3_y_pos" value="$(arg second_tb3_y_pos)" />
+        <arg name="second_tb3_z_pos" value="$(arg second_tb3_z_pos)" />
+        <arg name="second_tb3_yaw"   value="$(arg second_tb3_yaw)" />
+
+        <arg name="third_tb3_x_pos" value="$(arg third_tb3_x_pos)" />
+        <arg name="third_tb3_y_pos" value="$(arg third_tb3_y_pos)" />
+        <arg name="third_tb3_z_pos" value="$(arg third_tb3_z_pos)" />
+        <arg name="third_tb3_yaw"   value="$(arg third_tb3_yaw)" />
+    </include>
+
+    <!-- rviz node -->
+    <node type="rviz" name="rviz" pkg="rviz" args="-d $(find connectivity_pkg)/config/auction_robot.rviz" />
+
+</launch>

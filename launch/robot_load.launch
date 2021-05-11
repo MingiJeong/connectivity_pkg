@@ -1,0 +1,22 @@
+<launch>
+    <!-- launching arguments passed for main task -->
+    <arg name="robot_id" default=''/>
+    <arg name="robot_total" default=''/>
+    <arg name="init_x" default=''/>
+    <arg name="init_y" default=''/>
+    <arg name="init_z" default=''/>
+    <arg name="init_yaw" default=''/>
+    <arg name="leader" default=''/>
+
+    <!-- main robot load node -->
+    <node pkg="connectivity_pkg" type="connectivity_robot" name="connectivity_robot_node_$(arg robot_id)" output="screen">
+        <param name="robot_id" value="$(arg robot_id)"/>
+        <param name="robot_total" value="$(arg robot_total)"/>
+        <param name="init_x" value="$(arg init_x)"/>
+        <param name="init_y" value="$(arg init_y)"/>
+        <param name="init_z" value="$(arg init_z)"/>
+        <param name="init_yaw" value="$(arg init_yaw)"/>
+        <param name="leader" value="$(arg leader)"/>
+    </node>
+
+</launch>

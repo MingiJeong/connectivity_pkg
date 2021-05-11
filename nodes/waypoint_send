@@ -1,0 +1,94 @@
+#!/usr/bin/env python
+
+# import python modules
+from multipledispatch import dispatch
+
+# import of relevant libraries
+import rospy # module for ROS APIs
+from geometry_msgs.msg import Polygon, PolygonStamped, Point32
+from std_msgs.msg import Bool
+
+# import custom modules
+from connectivity_pkg.aux_function import random_point_generator
+from connectivity_pkg.auction_robot_super import DEFAULT_WP_TOPIC, RATE, DEFAULT_WORLD_FRAME, DEFAULT_FLUSH_OUT_TOPIC
+
+@dispatch(float, float, float, float, float ,float)
+def waypoint_generator(x1, y1, x2, y2, x3, y3):
+    """
+    function to generate waypoint message(type: PolygonStamped) for auctioneer's task (a)
+    for PA-3
+    """
+    wp_msg = PolygonStamped()
+    wp_msg.header.frame_id = DEFAULT_WORLD_FRAME
+    wp_msg.polygon.points = [
+        Point32(x=x1, y=y1),
+        Point32(x=x2, y=y2),
+        Point32(x=x3, y=y3)
+    ]
+
+    return wp_msg
+
+@dispatch(list)
+def waypoint_generator(generated_list):
+    """
+    overloaded function to generate waypoint message(type: PolygonStamped) for auctioneer's task (a)
+    this function is robust in that it takes a list of any length
+    for PA-4
+    """
+    wp_msg = PolygonStamped()
+    wp_msg.header.frame_id = DEFAULT_WORLD_FRAME
+    wp_msg.polygon.points = [
+        Point32(x=generated_list[i*2], y=generated_list[i*2+1]) 
+        for i in range(len(generated_list)/2)]
+
+    return wp_msg
+
+
+def flush_out_call_back(msg):
+    """
+    function to flush out the waypoint send node (shutdown) after robots reached destinations
+    """
+    if msg.data: # flushout True
+        # rospy.loginfo("Robots achieved tasks and shutdown for this node")
+        rospy.signal_shutdown("Robots achieved tasks and shutdown for this node")
+
+
+def main():
+    """ Main function """
+    """ waypoint generator by user input and publish through ROS message of type "Polygon" """
+
+    # initialization of node
+    rospy.init_node("waypoint_send")
+
+    # Sleep for a few seconds to wait for the registration.
+    rospy.sleep(2)
+
+    # setting up publishers/subscribers 
+    waypoint_publisher = rospy.Publisher(DEFAULT_WP_TOPIC, PolygonStamped, queue_size=1)
+    flush_out_subscriber = rospy.Subscriber(DEFAULT_FLUSH_OUT_TOPIC, Bool, flush_out_call_back, queue_size=10)
+    rate = rospy.Rate(RATE)
+
+    # receive total number of waypoints to be generated
+    point_total = rospy.get_param('~point_total')
+    rospy.loginfo("point total {}".format(point_total))
+
+    # random waypoint generator
+    generated_list = random_point_generator(point_total)
+
+    rospy.loginfo("random point {}".format(generated_list))
+
+    # polygon message for 3 robots
+    wp_msg = waypoint_generator(generated_list)
+
+    # start publish
+    try:
+        while not rospy.is_shutdown():
+            waypoint_publisher.publish(wp_msg)
+            rate.sleep()
+
+    except rospy.ROSInterruptException as e:
+        rospy.logerr("ROS node interrupted: {}".format(e))
+
+if __name__ == "__main__":
+    """Run the main function."""
+    main()

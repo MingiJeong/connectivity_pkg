@@ -1,0 +1,52 @@
+#!/usr/bin/env python
+
+# import of relevant libraries
+import rospy # module for ROS APIs
+from geometry_msgs.msg import PoseWithCovariance
+from tf.transformations import quaternion_from_euler
+
+# custom modules
+from connectivity_pkg.auction_robot_super import AuctionRobot
+from connectivity_pkg.auction_robot_bidder import AuctionRobotBidder
+from connectivity_pkg.auction_robot_auctioneer import AuctionRobotAuctioneer
+
+
+def main():
+    """ Main function """
+    """ each robot will be executing this node by robot_load.launch"""
+
+    # initialization of node
+    rospy.init_node("auction_robot")
+
+    # Sleep for a few seconds to wait for the registration.
+    rospy.sleep(2)
+
+    robot_id = int(rospy.get_param('~robot_id'))
+    robot_total = int(rospy.get_param('~robot_total'))
+    init_x = float(rospy.get_param('~init_x'))
+    init_y = float(rospy.get_param('~init_y'))
+    init_z = float(rospy.get_param('~init_z'))
+    init_yaw = float(rospy.get_param('~init_yaw'))
+    leader_bool = bool(rospy.get_param('~leader'))
+
+    # auctioneer robot
+    if leader_bool:
+        auction_robot = AuctionRobotAuctioneer(robot_id, robot_total, init_x, init_y, init_z, init_yaw)
+        rospy.logwarn("Robot {} initiated as a auctioneer".format(robot_id))
+    # bidder robot
+    else:
+        auction_robot = AuctionRobotBidder(robot_id, robot_total, init_x, init_y, init_z, init_yaw)
+        rospy.logwarn("Robot {} initiated as a bidder".format(robot_id))
+    
+    # If interrupted, send a stop command.
+    rospy.on_shutdown(auction_robot.stop)
+
+    # start spin
+    try:
+        auction_robot.spin()
+    except rospy.ROSInterruptException:
+        rospy.logerr("ROS node interrupted.")
+
+if __name__ == "__main__":
+    """Run the main function."""
+    main()

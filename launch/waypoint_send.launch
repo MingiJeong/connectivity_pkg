@@ -1,0 +1,10 @@
+<launch>
+  <!-- launching arguments passed as param for main task -->
+  <arg name="point_total" default="3"/>
+
+  <!-- main task node -->
+  <node pkg="connectivity_pkg" type="waypoint_send" name="waypoint_send" output="screen">
+    <param name="point_total" value="$(arg point_total)"/>  
+  </node>
+
+</launch>

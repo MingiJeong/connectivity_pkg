@@ -1,0 +1,64 @@
+<launch>
+    <!-- lunaching arguments passed for each node -->
+    <arg name="first_tb3"  default="0"/>
+    <arg name="second_tb3" default="1"/>
+    <arg name="third_tb3"  default="2"/>
+    <arg name="robot_total" default="3"/>
+
+    <arg name="first_tb3_x_pos" default=""/>
+    <arg name="first_tb3_y_pos" default=""/>
+    <arg name="first_tb3_z_pos" default=""/>
+    <arg name="first_tb3_yaw"   default=""/>
+    <arg name="first_tb3_leader" default="true"/>
+    
+    <arg name="second_tb3_x_pos" default=""/>
+    <arg name="second_tb3_y_pos" default=""/>
+    <arg name="second_tb3_z_pos" default=""/>
+    <arg name="second_tb3_yaw"   default=""/>
+    <arg name="second_tb3_leader" default="false"/>
+
+    <arg name="third_tb3_x_pos" default=""/>
+    <arg name="third_tb3_y_pos" default=""/>
+    <arg name="third_tb3_z_pos" default=""/>
+    <arg name="third_tb3_yaw"   default=""/>
+    <arg name="third_tb3_leader" default="false"/>
+
+    <!-- TF broadcastor for initial environment set up -->
+    <node pkg="connectivity_pkg" type="tf_broadcastor" name="tf_broadcastor" output="screen">
+        <param name="robot_total" value="$(arg robot_total)"/>
+    </node>
+
+    <!-- 1st robot -->
+    <include file="$(find connectivity_pkg)/launch/robot_load.launch">
+        <arg name="robot_id" value="$(arg first_tb3)" />
+        <arg name="robot_total" value="$(arg robot_total)" />
+        <arg name="init_x" value="$(arg first_tb3_x_pos)" />
+        <arg name="init_y" value="$(arg first_tb3_y_pos)" />
+        <arg name="init_z" value="$(arg first_tb3_z_pos)" />
+        <arg name="init_yaw" value="$(arg first_tb3_yaw)" />
+        <arg name="leader" value="$(arg first_tb3_leader)"/>
+    </include>
+
+    <!-- 2nd robot -->
+    <include file="$(find connectivity_pkg)/launch/robot_load.launch">
+        <arg name="robot_id" value="$(arg second_tb3)" />
+        <arg name="robot_total" value="$(arg robot_total)" />
+        <arg name="init_x" value="$(arg second_tb3_x_pos)" />
+        <arg name="init_y" value="$(arg second_tb3_y_pos)" />
+        <arg name="init_z" value="$(arg second_tb3_z_pos)" />
+        <arg name="init_yaw" value="$(arg second_tb3_yaw)" />
+        <arg name="leader" value="$(arg second_tb3_leader)"/>
+    </include>
+
+    <!-- 3rd robot -->
+    <include file="$(find connectivity_pkg)/launch/robot_load.launch">
+        <arg name="robot_id" value="$(arg third_tb3)" />
+        <arg name="robot_total" value="$(arg robot_total)" />
+        <arg name="init_x" value="$(arg third_tb3_x_pos)" />
+        <arg name="init_y" value="$(arg third_tb3_y_pos)" />
+        <arg name="init_z" value="$(arg third_tb3_z_pos)" />
+        <arg name="init_yaw" value="$(arg third_tb3_yaw)" />
+        <arg name="leader" value="$(arg third_tb3_leader)"/>
+    </include>
+
+</launch>
